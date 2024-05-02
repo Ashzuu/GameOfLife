@@ -23,7 +23,25 @@ namespace Game_of_life
     /// </summary>
     public partial class Game : Window
     {
+
+        #region Attributes
+
         private Rectangle[,] rectangles;        // Stocke les différents rectangles représentants les cases
+        private int limit;
+
+        #endregion
+
+        #region Properties
+
+        public static int Limit
+        {
+            get
+            {
+                return this.limit;
+            }
+        }
+
+        #endregion
 
         /// <summary>
         /// Constructeur de la classe "Game" (Initialise la page)
@@ -32,6 +50,7 @@ namespace Game_of_life
         public Game(int valueSlider)
         {
             InitializeComponent();
+            this.limit = valueSlider;
             this.rectangles = new Rectangle[valueSlider, valueSlider];
             for (int i = 0; i < valueSlider; i++)
             {

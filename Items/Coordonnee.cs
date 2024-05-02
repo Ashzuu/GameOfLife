@@ -8,8 +8,29 @@ namespace Game_of_life.Items
 {
     internal class Coordonnee
     {
+
+        #region Attributes
+
         private int x;
         private int y;
+
+        #endregion
+
+        #region Properties
+
+        public int CoordonneeX
+        {
+            get { return this.x; }
+        }
+
+        public int CoordonneY
+        {
+            get { return this.y; }
+        }
+
+        #endregion
+
+        #region Constructor
 
         public Coordonnee(int x, int y)
         {
@@ -22,6 +43,10 @@ namespace Game_of_life.Items
             this.x = 0;
             this.y = 0;
         }
+
+        #endregion
+
+        #region Methods
 
         public List<Coordonnee> GetAllVoisin()
         {
@@ -39,5 +64,7 @@ namespace Game_of_life.Items
             }
             return voisins;
         }
+
+        #endregion
     }
 }
