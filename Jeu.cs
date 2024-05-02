@@ -16,6 +16,7 @@ namespace Game_of_life
 
         public Jeu(Rectangle[,] rectangle)
         {
+            this.cells = new List<Cell>();
             for(int i = 0;  i < rectangle.GetLength(0); i++)
             {
                 for(int j = 0; j < rectangle.GetLength(1); j++)
@@ -25,7 +26,7 @@ namespace Game_of_life
                     {
                         cellule.State = true;
                     }
-                    cells.Add(cellule);
+                    this.cells.Add(cellule);
                 }
             }            
         }
