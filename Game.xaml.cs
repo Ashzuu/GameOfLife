@@ -37,7 +37,7 @@ namespace Game_of_life
         {
             get
             {
-                return this.limit;
+                return 0;
             }
         }
 
@@ -63,28 +63,11 @@ namespace Game_of_life
                 for (int y = 0; y < valueSlider; y++)
                 { 
                     Rectangle rectangle = CreateRectangle();
-                    Button button = CreateButton();
                     SetInGrid(Grille, rectangle, x, y);
-                    SetInGrid(Grille, button, x, y);
                     this.rectangles[x, y] = rectangle;
                 }
             }
 
-        }
-
-        /// <summary>
-        /// Méthode créant un bouton spécifique au jeu
-        /// </summary>
-        /// <returns></returns>
-        private Button CreateButton()
-        {
-            Button button = new Button();
-            button.Opacity = 0;
-            button.Click += onButtonClick;
-            button.HorizontalAlignment = HorizontalAlignment.Stretch;
-            button.VerticalAlignment = VerticalAlignment.Stretch;
-            
-            return button;
         }
 
         /// <summary>
@@ -99,8 +82,18 @@ namespace Game_of_life
             rectangle.Fill = Brushes.Transparent;
             rectangle.Stroke = Brushes.Black;
             rectangle.StrokeThickness = 0.1;
+            rectangle.MouseLeftButtonDown += MyRectangle_MouseLeftButtonDown;
 
             return rectangle;
+        }
+        
+        private void MyRectangle_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            Rectangle clickedObj = sender as Rectangle;
+
+            if (clickedObj.Fill == Brushes.White) clickedObj.Fill = Brushes.Black;
+            else clickedObj.Fill = Brushes.White;
+
         }
 
         /// <summary>
@@ -115,20 +108,6 @@ namespace Game_of_life
             Grid.SetColumn(rectangle, x);
             Grid.SetRow(rectangle, y);
             Grille.Children.Add(rectangle);
-        }
-
-        /// <summary>
-        /// Permet d'ajouter un élément bouton dans une grille donnée en paramètre
-        /// </summary>
-        /// <param name="grille">La grille dans laquelle ajouter</param>
-        /// <param name="bouton">Le bouton à ajouter</param>
-        /// <param name="x">Coordonnée x</param>
-        /// <param name="y">Coordonnée y</param>
-        private void SetInGrid(Grid grille, Button bouton, int x, int y)
-        {
-            Grid.SetColumn(bouton, x);
-            Grid.SetRow(bouton, y);
-            Grille.Children.Add(bouton);
         }
 
         /// <summary>
@@ -156,15 +135,15 @@ namespace Game_of_life
         }
 
         /// <summary>
-        /// Ne fonctionne pas
+        /// Permet d'appeler lors de l'appui de la touche E !
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender">Objet qui appelle la fonction</param>
+        /// <param name="e">La clé qui a permis d'appeler la fonction</param>
         private void Window_KeyDown(object sender, KeyEventArgs e)
         {
             if(e.Key == Key.E)
             {
-                Jeu jeu = new Jeu(this.rectangles);
+                Jeu jeu = new Jeu(this.rectangles,this.limit);
                 jeu.Jouer();
             }
         }
