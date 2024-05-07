@@ -10,3 +10,7 @@ Petit projet solo où je recode le jeu de la vie en XAML C#.
 ## Délai fixé :
 
 **Aucun**
+
+## Etat :
+
+**Terminé** *- Mais non optimisé*
