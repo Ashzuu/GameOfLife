@@ -65,10 +65,13 @@ namespace Game_of_life
                 for (int y = 0; y < valueSlider; y++)
                 {
                     Rectangle rectangle = CreateRectangle();
-                    int nb = nbRandom.Next(1, 3);
-                    if(nb == 1)
+                    if (this.randomPattern)                 // Must be patch !
                     {
-                        rectangle.Fill = Brushes.Black;
+                        int nb = nbRandom.Next(1, 3);
+                        if (nb == 1)
+                        {
+                            rectangle.Fill = Brushes.Black;
+                        }
                     }
                     SetInGrid(Grille, rectangle, x, y);
                     this.rectangles[x, y] = rectangle;

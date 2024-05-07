@@ -30,7 +30,7 @@
                 <DropShadowEffect/>
             </Button.Effect>
         </Button>
-        <Label Name="tailleLabel" Grid.Column="1" Grid.Row="3" Content="Taille : Indéfini" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontSize="30" Height="50" Width="198"/>
+        <Label Name="tailleLabel" Grid.Column="1" Grid.Row="3" Content="Taille : Indéfini" HorizontalAlignment="Center" VerticalAlignment="Top" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="30" Height="50" Width="252" Margin="0,73,0,0"/>
         <Slider Name="sizeCursor"  Grid.Column="1" Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" Height="18" Minimum="5" Maximum="500" Value="10" ValueChanged="SliderChangedValue" SmallChange="1" IsSnapToTickEnabled="True" TickFrequency="1"/>
         <CheckBox Content="Générer un pattern aléatoire" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" VerticalContentAlignment="Center" FontSize="20" Grid.Row="4" Checked="CheckedBox" Unchecked="UncheckedBox"/>
     </Grid>
