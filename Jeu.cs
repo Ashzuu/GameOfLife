@@ -9,9 +9,9 @@ using System.Windows.Shapes;
 
 namespace Game_of_life
 {
-    internal class Jeu
+    public class Jeu
     {
-        private List<bool> cells;
+        private Dictionary<Rectangle,bool> cells;
         private Rectangle[,] rectangles;
         private int limite;
 
@@ -22,22 +22,27 @@ namespace Game_of_life
         public Jeu(Rectangle[,] rectangle,int limite)
         {
             this.rectangles = rectangle;
-            this.cells = new List<bool>();
             this.limite = limite;
-            for(int i = 0;  i < this.rectangles.GetLength(0); i++)
+            Initialisation();
+        }
+
+        /// <summary>
+        /// Initialisation de la grid.
+        /// </summary>
+        private void Initialisation()
+        {
+            this.cells = new Dictionary<Rectangle, bool>();
+            foreach (Rectangle rectangle in this.rectangles)
             {
-                for(int j = 0; j < this.rectangles.GetLength(1); j++)
+                if (rectangle.Fill == Brushes.White)
                 {
-                    if(this.rectangles[i,j].Fill == Brushes.Black)
-                    {
-                        this.cells.Add(true);
-                    }
-                    else
-                    {
-                        this.cells.Add(false);
-                    }
+                    this.cells[rectangle] = false;
                 }
-            }            
+                else
+                {
+                    this.cells[rectangle] = true;
+                }
+            }           
         }
 
         /// <summary>
@@ -57,7 +62,7 @@ namespace Game_of_life
 
             else if (j == 0)
             {
-                res = i;
+                res = i*this.limite;
             }
             else
             {
@@ -71,7 +76,7 @@ namespace Game_of_life
         /// Permet d'obtenir le nombre de voisins vivant pour une case donnée.
         /// </summary>
         /// <returns></returns>
-        private int CountVoisins(int i, int j)
+        private int CountVoisins(Rectangle rectangle)
         {
             int res = 0;
             if (i > 0 && j > 0 && j < this.limite-1 && i < this.limite-1 ) 
@@ -90,18 +95,15 @@ namespace Game_of_life
 
         private void updateScreen()
         {
-            for (int i = 0; i < this.rectangles.GetLength(0); i++)
+            foreach (KeyValuePair<Rectangle,bool> cell in this.cells)
             {
-                for (int j = 0; j < this.rectangles.GetLength(1); j++)
+                if (cell.Value)
                 {
-                    if (this.cells[ConvertToIndice(i,j)])
-                    {
-                        this.rectangles[i, j].Fill = Brushes.Black;
-                    }
-                    else
-                    {
-                        this.rectangles[i, j].Fill = Brushes.White;
-                    }
+                    cell.Key.Fill = Brushes.Black;
+                }
+                else
+                {
+                    cell.Key.Fill = Brushes.White;
                 }
             }
         }
@@ -111,7 +113,7 @@ namespace Game_of_life
         /// </summary>
         public void Jouer()
         {
-            List<bool> cellsNextStep = new List<bool>(this.cells);
+            Dictionary<Rectangle,bool> cellsNextStep = new Dictionary<Rectangle,bool>(this.cells);
             for(int i = 0;  i < this.rectangles.GetLength(0); i++)
             {
                 for(int j = 0; j < this.rectangles.GetLength(1); j++)
@@ -119,7 +121,7 @@ namespace Game_of_life
                     
                     if (this.rectangles[i, j].Fill == Brushes.White)
                     {
-                        if (CountVoisins(i, j) == 3)
+                        if (CountVoisins(i, j) == 3) // Bon c'est là on ça peut devenir compliqué...
                         {
                             cellsNextStep[ConvertToIndice(i, j)] = true;
                         }
