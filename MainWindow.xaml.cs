@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -20,8 +22,10 @@ namespace Game_of_life
     /// </summary>
     public partial class MainWindow : Window
     {
+        private bool randomPattern;
         public MainWindow()
         {
+            this.randomPattern = false;
             InitializeComponent();
         }
 
@@ -33,7 +37,18 @@ namespace Game_of_life
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             Game game = new Game(Convert.ToInt32(sizeCursor.Value));
+            game.DefineCheckBox(this.randomPattern);
             game.Show();
+        }
+
+        private void CheckedBox(object sender, RoutedEventArgs e)
+        {
+            this.randomPattern = true;
+        }
+
+        private void UncheckedBox(object sender, RoutedEventArgs e)
+        {
+            this.randomPattern = false;
         }
     }
 

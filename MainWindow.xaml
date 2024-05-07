@@ -18,19 +18,20 @@
             <RowDefinition Height="36*"></RowDefinition>
             <RowDefinition Height="36*"></RowDefinition>
             <RowDefinition Height="63*"></RowDefinition>
-            <RowDefinition Height="108*"/>
-            <RowDefinition Height="119*"/>
+            <RowDefinition Height="123*"/>
+            <RowDefinition Height="104*"/>
             <RowDefinition Height="48*"></RowDefinition>
             <RowDefinition Height="24*"></RowDefinition>
         </Grid.RowDefinitions>
-        <Rectangle Stroke="Gray" Fill="LightGray" Grid.RowSpan="5" Grid.Row="1" Grid.Column="1"/>
-        <Label Grid.Column="1"  Grid.Row="2" Content="Jeu de la vie (version Wish)" HorizontalAlignment="Center" FontSize="40" VerticalAlignment="Center"></Label>
-        <Button Grid.Column="1" Grid.Row="5" Content="Play" HorizontalAlignment="Center" VerticalAlignment="Top" Padding="30 10" Click="Button_Click">
+        <Rectangle Stroke="Gray" Fill="LightGray" Grid.RowSpan="6" Grid.Column="1" Margin="0,36,0,0"/>
+        <Label Grid.Column="1"  Grid.Row="2" Content="Jeu de la vie (version Wish)" HorizontalAlignment="Center" FontSize="40" VerticalAlignment="Center" Height="63" Width="484"></Label>
+        <Button Grid.Column="1" Grid.Row="5" Content="Play" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="30 10" Click="Button_Click" Height="38" Width="84">
             <Button.Effect>
                 <DropShadowEffect/>
             </Button.Effect>
         </Button>
-        <Label Name="tailleLabel" Grid.Column="1" Grid.Row="4" Content="Taille : Indéfini" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="30"/>
-        <Slider Name="sizeCursor"  Grid.Column="1" Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" Height="auto" Minimum="5" Maximum="500" Value="10" ValueChanged="SliderChangedValue" SmallChange="1" IsSnapToTickEnabled="True" TickFrequency="1"/>
+        <Label Name="tailleLabel" Grid.Column="1" Grid.Row="3" Content="Taille : Indéfini" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontSize="30" Height="50" Width="198"/>
+        <Slider Name="sizeCursor"  Grid.Column="1" Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" Height="18" Minimum="5" Maximum="500" Value="10" ValueChanged="SliderChangedValue" SmallChange="1" IsSnapToTickEnabled="True" TickFrequency="1"/>
+        <CheckBox Content="Générer un pattern aléatoire" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" VerticalContentAlignment="Center" FontSize="20" Grid.Row="4" Checked="CheckedBox" Unchecked="UncheckedBox"/>
     </Grid>
 </Window>

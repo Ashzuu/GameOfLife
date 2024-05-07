@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using System.Windows.Markup.Localizer;
 using System.Windows.Media;
 using System.Windows.Shapes;
 
@@ -79,6 +80,18 @@ namespace Game_of_life
         private int CountVoisins(Rectangle rectangle)
         {
             int res = 0;
+
+            int i = 0;
+            int j = 0;
+            foreach (Rectangle rect in this.cells.Keys)
+            {
+                if (rectangle != rect) i += 1;
+                else break;
+            }
+
+            j = i % this.limite;
+            i = i / this.limite;
+            
             if (i > 0 && j > 0 && j < this.limite-1 && i < this.limite-1 ) 
             {
                 if (this.rectangles[i-1, j-1].Fill == Brushes.Black) res += 1;
@@ -90,6 +103,7 @@ namespace Game_of_life
                 if (this.rectangles[i+1, j].Fill == Brushes.Black) res += 1;
                 if (this.rectangles[i+1, j+1].Fill == Brushes.Black) res += 1;
             }
+            Console.WriteLine(res);
             return res;
         }
 
@@ -114,34 +128,30 @@ namespace Game_of_life
         public void Jouer()
         {
             Dictionary<Rectangle,bool> cellsNextStep = new Dictionary<Rectangle,bool>(this.cells);
-            for(int i = 0;  i < this.rectangles.GetLength(0); i++)
+            foreach (Rectangle rectangle in this.rectangles)
             {
-                for(int j = 0; j < this.rectangles.GetLength(1); j++)
-                {
-                    
-                    if (this.rectangles[i, j].Fill == Brushes.White)
+                    if (rectangle.Fill == Brushes.White)
                     {
-                        if (CountVoisins(i, j) == 3) // Bon c'est là on ça peut devenir compliqué...
+                        if (CountVoisins(rectangle) == 3) // Bon c'est là on ça peut devenir compliqué...
                         {
-                            cellsNextStep[ConvertToIndice(i, j)] = true;
+                            cellsNextStep[rectangle] = true;
                         }
                         else
                         {
-                            cellsNextStep[ConvertToIndice(i, j)] = false;
+                            cellsNextStep[rectangle] = false;
                         }
                     }
                     else
                     {
-                        if (CountVoisins(i, j) < 2 || CountVoisins(i, j) > 3)
+                        if (CountVoisins(rectangle) < 2 || CountVoisins(rectangle) > 3)
                         {
-                            cellsNextStep[ConvertToIndice(i, j)] = false;
+                            cellsNextStep[rectangle] = false;
                         }
                         else
                         {
-                            cellsNextStep[ConvertToIndice(i, j)] = true;
+                            cellsNextStep[rectangle] = true;
                         }
                     }
-                }
             }
             if (cellsNextStep.Count != this.cells.Count)
                 throw new Exception("Erreur lors du calcul de la nouvelle liste de cellules !");

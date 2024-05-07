@@ -27,7 +27,8 @@ namespace Game_of_life
         #region Attributes
 
         private Rectangle[,] rectangles;        // Stocke les différents rectangles représentants les cases
-        private int limit;
+        private int limit;                      // Définit la limite de l'indice du tableau.
+        private bool randomPattern;             // Définit si l'on doit générer un pattern aléatoire ou non.
 
         #endregion
 
@@ -50,6 +51,7 @@ namespace Game_of_life
         public Game(int valueSlider)
         {
             InitializeComponent();
+            Random nbRandom = new Random();
             this.limit = valueSlider;
             this.rectangles = new Rectangle[valueSlider, valueSlider];
             for (int i = 0; i < valueSlider; i++)
@@ -61,8 +63,13 @@ namespace Game_of_life
             for (int x = 0; x < valueSlider; x++)           // Parcours de la grille permettant d'y ajouter tous les éléments
             {
                 for (int y = 0; y < valueSlider; y++)
-                { 
+                {
                     Rectangle rectangle = CreateRectangle();
+                    int nb = nbRandom.Next(1, 3);
+                    if(nb == 1)
+                    {
+                        rectangle.Fill = Brushes.Black;
+                    }
                     SetInGrid(Grille, rectangle, x, y);
                     this.rectangles[x, y] = rectangle;
                 }
@@ -87,6 +94,11 @@ namespace Game_of_life
             return rectangle;
         }
         
+        /// <summary>
+        /// Evenement permettant de changer la couleur d'une rectangle lors d'un clique gauche
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void MyRectangle_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             Rectangle clickedObj = sender as Rectangle;
@@ -111,27 +123,12 @@ namespace Game_of_life
         }
 
         /// <summary>
-        /// Evenement appelé lorsque l'on clique sur une case, permettant de changer la couleur de la case
+        /// Permet de définir si le random pattern est activé ou non.
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        public void onButtonClick(object sender, RoutedEventArgs e) 
+        /// <param name="value"></param>
+        public void DefineCheckBox(bool value)
         {
-            if(sender is Button button)
-            {
-                int x = Grid.GetColumn(button);
-                int y = Grid.GetRow(button);
-
-                if (this.rectangles[x, y].Fill == Brushes.White)
-                {
-                    this.rectangles[x, y].Fill = Brushes.Black;
-                }
-                else
-                {
-                    this.rectangles[x, y].Fill = Brushes.White;
-                }
-                
-            }
+            this.randomPattern = value;
         }
 
         /// <summary>
