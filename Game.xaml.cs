@@ -29,6 +29,7 @@ namespace Game_of_life
         private Rectangle[,] rectangles;        // Stocke les différents rectangles représentants les cases
         private int limit;                      // Définit la limite de l'indice du tableau.
         private bool randomPattern;             // Définit si l'on doit générer un pattern aléatoire ou non.
+        private Jeu jeu;                        // Permet de stocker le jeu en cours
 
         #endregion
 
@@ -78,6 +79,7 @@ namespace Game_of_life
                     this.rectangles[x, y] = rectangle;
                 }
             }
+            this.jeu = new Jeu(this.rectangles,this.limit);
 
         }
 
@@ -135,8 +137,7 @@ namespace Game_of_life
         {
             if(e.Key == Key.E)
             {
-                Jeu jeu = new Jeu(this.rectangles,this.limit);
-                jeu.Jouer();
+                this.jeu.Jouer();
             }
         }
     }
