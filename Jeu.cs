@@ -47,33 +47,6 @@ namespace Game_of_life
         }
 
         /// <summary>
-        /// Permet de convertir des coordonnées en indices dans le tableau
-        /// C'est une méthode vraiment peu esthétique, mais it's working !
-        /// </summary>
-        /// <param name="i">Coordonnée en x du rectangle à retrouver</param>
-        /// <param name="j">Coordonnée en y du rectangle à retrouver</param>
-        /// <returns>L'indice à chercher dans le tableau correspondant</returns>
-        private int ConvertToIndice(int i, int j)
-        {
-            int res = 0;
-            if (i == 0)
-            {
-                res = j;
-            }
-
-            else if (j == 0)
-            {
-                res = i*this.limite;
-            }
-            else
-            {
-                res = i * j;
-            }
-
-            return res;
-        }
-
-        /// <summary>
         /// Permet d'obtenir le nombre de voisins vivant pour une case donnée.
         /// </summary>
         /// <returns></returns>
@@ -103,10 +76,12 @@ namespace Game_of_life
                 if (this.rectangles[i+1, j].Fill == Brushes.Black) res += 1;
                 if (this.rectangles[i+1, j+1].Fill == Brushes.Black) res += 1;
             }
-            Console.WriteLine(res);
             return res;
         }
 
+        /// <summary>
+        /// Mets à jour l'écran 
+        /// </summary>
         private void updateScreen()
         {
             foreach (KeyValuePair<Rectangle,bool> cell in this.cells)

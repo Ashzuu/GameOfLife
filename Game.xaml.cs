@@ -48,11 +48,12 @@ namespace Game_of_life
         /// Constructeur de la classe "Game" (Initialise la page)
         /// </summary>
         /// <param name="valueSlider">Valeur choisie au préalable dans le menu principal</param>
-        public Game(int valueSlider)
+        public Game(int valueSlider, bool random)
         {
             InitializeComponent();
             Random nbRandom = new Random();
             this.limit = valueSlider;
+            this.randomPattern = random;
             this.rectangles = new Rectangle[valueSlider, valueSlider];
             for (int i = 0; i < valueSlider; i++)
             {
@@ -65,7 +66,7 @@ namespace Game_of_life
                 for (int y = 0; y < valueSlider; y++)
                 {
                     Rectangle rectangle = CreateRectangle();
-                    if (this.randomPattern)                 // Must be patch !
+                    if (this.randomPattern)            
                     {
                         int nb = nbRandom.Next(1, 3);
                         if (nb == 1)
@@ -123,15 +124,6 @@ namespace Game_of_life
             Grid.SetColumn(rectangle, x);
             Grid.SetRow(rectangle, y);
             Grille.Children.Add(rectangle);
-        }
-
-        /// <summary>
-        /// Permet de définir si le random pattern est activé ou non.
-        /// </summary>
-        /// <param name="value"></param>
-        public void DefineCheckBox(bool value)
-        {
-            this.randomPattern = value;
         }
 
         /// <summary>
