@@ -17,6 +17,8 @@ Petit projet solo où je recode le jeu de la vie en XAML C#.
 
 ## Comment jouer ?
 
+_Installer l'exécutable qui se trouve dans le dossier "Exécutable du jeu"_
+
 - **Sélectionnez les dimensions de votre quadrillage, ainsi que si vous souhaitez avoir un pattern aléatoire ou non**
 - *Puis, cliquez sur le bouton*
 - *Appyez sur la touche **E** pour incrémenter de 1 chaque tour (Vous pouvez rester appuyer)*
